@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ОГЭ · 9 класс · Задание 9 — Линейные уравнения</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:linear-gradient(135deg,#e8f0fe 0%,#f3e8fd 100%);
+    min-height:100vh; padding:24px 12px; color:#1f2a44;
+  }
+  .wrap { max-width:640px; margin:0 auto; }
+  .card {
+    background:#fff; border-radius:18px; padding:28px;
+    box-shadow:0 8px 28px rgba(60,60,140,.12); margin-bottom:18px;
+  }
+  .banner {
+    text-align:center; background:linear-gradient(135deg,#5b8def,#8f6bf0);
+    color:#fff; border-radius:18px; padding:26px 20px; margin-bottom:18px;
+    box-shadow:0 8px 28px rgba(90,110,240,.28);
+  }
+  .banner h1 { font-size:26px; margin-bottom:6px; }
+  .banner p { font-size:15px; opacity:.95; }
+  .counter {
+    display:inline-block; background:#eef2ff; color:#4a5cc5;
+    font-weight:700; padding:4px 14px; border-radius:20px; font-size:14px; margin-bottom:14px;
+  }
+  .question {
+    font-size:24px; font-weight:700; text-align:center;
+    background:#f7f8fc; border-radius:12px; padding:22px 12px; margin-bottom:18px;
+    font-family:'Cambria Math', Georgia, serif; letter-spacing:.3px;
+  }
+  .row { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  label.ans { font-weight:700; font-size:16px; }
+  input[type=text] {
+    flex:1; min-width:140px; padding:12px 14px; font-size:18px;
+    border:2px solid #d7ddf0; border-radius:10px; outline:none;
+  }
+  input[type=text]:focus { border-color:#5b8def; }
+  .btn {
+    border:none; border-radius:10px; padding:12px 20px; font-size:16px;
+    font-weight:700; cursor:pointer; transition:.15s;
+  }
+  .btn:active { transform:scale(.97); }
+  .btn-check { background:#2e9e5b; color:#fff; }
+  .btn-check:hover { background:#27894f; }
+  .btn-hint { background:#f2b705; color:#5b4300; }
+  .btn-hint:hover { background:#e0a902; }
+  .feedback { margin-top:14px; font-size:16px; font-weight:700; min-height:24px; }
+  .ok { color:#2e9e5b; }
+  .bad { color:#d64545; }
+  .hint { margin-top:10px; background:#fff8e1; border-left:4px solid #f2b705;
+    padding:10px 14px; border-radius:8px; font-size:15px; }
+  .memo-btn {
+    width:100%; text-align:left; background:#eef2ff; color:#3a4aa8;
+    border:none; border-radius:12px; padding:14px 16px; font-size:15px;
+    font-weight:700; cursor:pointer; margin-top:6px;
+  }
+  .memo { display:none; background:#f7f8fc; border-radius:12px; padding:16px 18px; margin-top:10px; }
+  .memo.open { display:block; }
+  .memo h4 { font-size:15px; margin:12px 0 4px; color:#3a4aa8; }
+  .memo h4:first-child { margin-top:0; }
+  .memo p, .memo li { font-size:14.5px; line-height:1.55; }
+  .memo ol { padding-left:20px; }
+  .memo code { background:#e8ecfa; padding:1px 6px; border-radius:5px; font-size:13.5px; }
+  .again { display:none; width:100%; margin-top:16px; background:#e94f8a; color:#fff; }
+  .again:hover { background:#d13d78; }
+  .level {
+    display:block; width:100%; border:none; border-radius:14px;
+    padding:18px 20px; margin-bottom:12px; cursor:pointer; text-align:left;
+    color:#fff; font-size:18px; font-weight:700; transition:.15s;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+  }
+  .level span { display:block; font-size:14px; font-weight:500; opacity:.95; margin-top:4px; }
+  .lvl-green { background:linear-gradient(135deg,#2e9e5b,#277a48); }
+  .lvl-yellow { background:linear-gradient(135deg,#f2b705,#d99a00); }
+  .lvl-red { background:linear-gradient(135deg,#e05a2b,#c23c14); }
+  .dot { display:inline-block; width:16px; height:16px; border-radius:50%; margin-right:8px; vertical-align:-2px; }
+  .progress-bar { height:8px; background:#e6e9f5; border-radius:6px; overflow:hidden; margin-bottom:16px; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,#5b8def,#8f6bf0); width:0; transition:.3s; }
+  .score { text-align:center; font-size:16px; font-weight:700; color:#3a4aa8; margin-bottom:10px; }
+  .footer { text-align:center; font-size:13px; color:#8a90a8; margin-top:6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="banner">
+    <h1>ОГЭ · 9 класс · Задание 9</h1>
+    <p>Линейные уравнения — как в банке заданий ОГЭ</p>
+  </div>
+
+  <!-- ЭКРАН ВЫБОРА УРОВНЯ -->
+  <div class="card" id="menu">
+    <p style="text-align:center; font-size:15px; margin-bottom:18px;">
+      Решаем уравнения из банка «Решу ОГЭ»: перенос, скобки, дроби.<br>
+      Три уровня · подсказки · пошаговый разбор.
+    </p>
+    <button class="level lvl-green" onclick="start('База')">
+      <span class="dot" style="background:#7CFC00"></span>База
+      <span>Простейшие линейные: перенос и подобные слагаемые</span>
+    </button>
+    <button class="level lvl-yellow" onclick="start('Средний')">
+      <span class="dot" style="background:#FFD700"></span>Средний
+      <span>Скобки, минус перед скобками, деление на число</span>
+    </button>
+    <button class="level lvl-red" onclick="start('Продвинутый')">
+      <span class="dot" style="background:#ff3b30"></span>Продвинутый
+      <span>Дробно-рациональные уравнения</span>
+    </button>
+  </div>
+
+  <!-- ЭКРАН ЗАДАНИЯ -->
+  <div class="card" id="quiz" style="display:none">
+    <div class="counter" id="counter">1 / 5</div>
+    <div class="progress-bar"><div class="progress-fill" id="pfill"></div></div>
+    <div class="question" id="qtext"></div>
+
+    <div class="row">
+      <label class="ans" for="ans">Ответ:</label>
+      <input type="text" id="ans" placeholder="например: 6" autocomplete="off">
+    </div>
+
+    <div class="row" style="margin-top:14px;">
+      <button class="btn btn-check" onclick="check()">Проверить</button>
+      <button class="btn btn-hint" onclick="showHint()">Подсказка 💡</button>
+    </div>
+
+    <div class="feedback" id="fb"></div>
+    <div class="hint" id="hintbox" style="display:none"></div>
+
+    <button class="memo-btn" onclick="toggleMemo()">📖 Памятка: правила и ловушки — нажми, чтобы открыть</button>
+    <div class="memo" id="memo">
+      <h4>Шаги решения</h4>
+      <ol>
+        <li><b>Скобки</b> — раскрой, если есть: каждое слагаемое внутри умножь на число перед скобкой.</li>
+        <li><b>Перенос</b> — иксы влево, числа вправо; при переносе через «=» знак меняется на противоположный.</li>
+        <li><b>Подобные</b> — сложи все иксы слева и все числа справа.</li>
+        <li><b>Деление</b> — раздели обе части на коэффициент перед x.</li>
+      </ol>
+      <h4>Ловушка с минусом</h4>
+      <p>Если перед скобкой минус — при раскрытии меняются знаки всех слагаемых внутри: <code>−(x + 5) = −x − 5</code>.</p>
+      <h4>Дробный или отрицательный ответ — это нормальный ответ</h4>
+      <p>В задании 9 ОГЭ часто получаются дроби: пиши их через запятую (например, <code>5,333</code>) или дробью (<code>16/3</code>). Отрицательный корень — просто со знаком минус.</p>
+      <h4>Дробные уравнения</h4>
+      <p>Если есть дробь с x в числителе — умножь обе части на общий знаменатель всех дробей: дроби исчезнут, уравнение станет обычным.</p>
+      <h4>Проверка</h4>
+      <p>Подставь найденный корень в уравнение — обе части должны сравняться.</p>
+    </div>
+
+    <button class="btn again" id="againbtn" onclick="showMenu()">Пройти ещё раз</button>
+    <div class="score" id="score" style="display:none"></div>
+  </div>
+
+  <div class="footer">© Елена Шерезданова · Математика 5–11 класс</div>
+</div>
+
+<script>
+const DATA = {
+  "База": [{"q":"5x − 4 = 3x + 8","a":["6"],"h":"Перенесите 3x влево, а −4 вправо: знаки при переносе меняются.","s":"5x − 3x = 8 + 4 → 2x = 12 → x = 6"},
+{"q":"7x = −42","a":["-6","−6"],"h":"Разделите обе части на коэффициент перед x.","s":"x = −42 : 7 = −6"},
+{"q":"4x + 12 = 0","a":["-3","−3"],"h":"Перенесите 12 вправо, затем разделите на 4.","s":"4x = −12 → x = −12 : 4 = −3"},
+{"q":"x + 9 = 3x − 7","a":["8"],"h":"Иксы влево, числа вправо: x − 3x = −7 − 9.","s":"−2x = −16 → x = 8"},
+{"q":"10 − 2x = 4","a":["3"],"h":"Перенесите 10 вправо: −2x = 4 − 10.","s":"−2x = −6 → x = 3"}],
+  "Средний": [{"q":"3(x + 2) = 18","a":["4"],"h":"Раскройте скобки: 3 умножить на каждое слагаемое внутри.","s":"3x + 6 = 18 → 3x = 12 → x = 4"},
+{"q":"5(x − 1) = 2x + 11","a":["16/3","5.333","5,333"],"h":"Раскройте скобки и перенесите: 5x − 5 = 2x + 11 → 3x = 16.","s":"3x = 16 → x = 16/3 (дробный ответ — это нормально)"},
+{"q":"6 − 2(x + 3) = 8","a":["-4","−4"],"h":"Сначала раскройте скобки: −2(x + 3) = −2x − 6.","s":"6 − 2x − 6 = 8 → −2x = 8 → x = −4"},
+{"q":"4(x − 3) = −2(x + 1)","a":["5/3","1.667","1,667"],"h":"Раскройте скобки, соберите иксы слева: 4x + 2x = −2 + 12.","s":"4x − 12 = −2x − 2 → 6x = 10 → x = 5/3"},
+{"q":"2(3x − 1) = 4x + 6","a":["4"],"h":"Раскройте: 6x − 2 = 4x + 6 → 2x = 8.","s":"2x = 8 → x = 4"}],
+  "Продвинутый": [{"q":"(x + 3)/2 = (2x − 1)/3","a":["11"],"h":"Умножьте обе части на 6 (общий знаменатель).","s":"3(x + 3) = 2(2x − 1) → 3x + 9 = 4x − 2 → x = 11"},
+{"q":"(2x + 1)/5 = x/2","a":["2"],"h":"Умножьте обе части на 10.","s":"2(2x + 1) = 5x → 4x + 2 = 5x → x = 2"},
+{"q":"x/3 + x/6 = 5","a":["10"],"h":"Умножьте обе части на 6 — знаменатели уйдут.","s":"2x + x = 30 → 3x = 30 → x = 10"},
+{"q":"4(2x − 3) − 3(x + 1) = x + 5","a":["5"],"h":"Раскройте обе скобки и приведите подобные слагаемые.","s":"8x − 12 − 3x − 3 = x + 5 → 5x − 15 = x + 5 → 4x = 20 → x = 5"},
+{"q":"(x − 4)/4 − (x + 1)/5 = 1","a":["44"],"h":"Умножьте обе части на 20.","s":"5(x − 4) − 4(x + 1) = 20 → 5x − 20 − 4x − 4 = 20 → x = 44"}]
+};
+
+let lvl=null, idx=0, solved=0, done=false;
+
+function start(level){
+  lvl=level; idx=0; solved=0; done=false;
+  document.getElementById('menu').style.display='none';
+  document.getElementById('quiz').style.display='block';
+  document.getElementById('againbtn').style.display='none';
+  document.getElementById('score').style.display='none';
+  document.getElementById('hintbox').style.display='none';
+  show();
+}
+
+function show(){
+  const t=DATA[lvl][idx];
+  document.getElementById('counter').textContent=(idx+1)+' / '+DATA[lvl].length;
+  document.getElementById('pfill').style.width=(idx/DATA[lvl].length*100)+'%';
+  document.getElementById('qtext').textContent=t.q;
+  document.getElementById('ans').value='';
+  document.getElementById('fb').textContent='';
+  document.getElementById('fb').className='feedback';
+  document.getElementById('hintbox').style.display='none';
+  document.getElementById('ans').focus();
+}
+
+function norm(s){
+  s=(''+s).trim().replace('−','-').replace(',','.');
+  if(/^-?\d+\/\d+$/.test(s)){ const p=s.split('/'); return parseFloat(p[0])/parseFloat(p[1]); }
+  return parseFloat(s);
+}
+
+function check(){
+  if(done) return;
+  const t=DATA[lvl][idx];
+  const raw=document.getElementById('ans').value.trim();
+  const fb=document.getElementById('fb');
+  if(raw===''){ fb.textContent='Введите ответ.'; fb.className='feedback bad'; return; }
+  const v=norm(raw);
+  let good=false;
+  for(const a of t.a){ const av=norm(a); if(!isNaN(av)&&!isNaN(v)&&Math.abs(av-v)<0.01){ good=true; break; } }
+  if(good){
+    solved++; fb.textContent='✅ Верно! '+t.s; fb.className='feedback ok'; next();
+  } else {
+    fb.textContent='❌ Пока неверно. Открой подсказку и попробуй ещё раз.';
+    fb.className='feedback bad';
+  }
+}
+
+function showHint(){
+  const t=DATA[lvl][idx];
+  const hb=document.getElementById('hintbox');
+  hb.textContent='💡 '+t.h;
+  hb.style.display='block';
+}
+
+function next(){
+  idx++;
+  if(idx>=DATA[lvl].length){ finish(); } else { show(); }
+}
+
+function finish(){
+  done=true;
+  document.getElementById('counter').textContent='Готово!';
+  document.getElementById('pfill').style.width='100%';
+  document.getElementById('qtext').textContent='Уровень «'+lvl+'» пройден 🎉';
+  document.getElementById('fb').textContent='Решено верно: '+solved+' из '+DATA[lvl].length+'.';
+  document.getElementById('fb').className='feedback ok';
+  document.getElementById('hintbox').style.display='none';
+  document.getElementById('againbtn').style.display='block';
+  document.getElementById('score').style.display='block';
+}
+
+function showMenu(){
+  document.getElementById('quiz').style.display='none';
+  document.getElementById('menu').style.display='block';
+}
+
+function toggleMemo(){
+  document.getElementById('memo').classList.toggle('open');
+}
+
+document.getElementById('ans').addEventListener('keydown', function(e){
+  if(e.key==='Enter') check();
+});
+</script>
+</body>
+</html>
